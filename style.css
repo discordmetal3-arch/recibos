@@ -1,230 +1,210 @@
-:root {
-    --bg-system: #f3f4f6;
-    --bg-card: #ffffff;
-    --text-main: #111111;
-    --text-muted: #555555;
-    --border-color: #888888;
-    --accent-color: #1a1a1a;
-    --table-header: #f8f9fa;
-    --shadow: rgba(0, 0, 0, 0.06);
-    --dropdown-bg: #ffffff;
-    --dropdown-hover: #f0f0f0;
-}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Recibos A4 - Metal Print</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-body.dark-mode {
-    --bg-system: #121212;
-    --bg-card: #1e1e1e;
-    --text-main: #e0e0e0;
-    --text-muted: #a0a0a0;
-    --border-color: #444444;
-    --accent-color: #ffffff;
-    --table-header: #2d2d2d;
-    --shadow: rgba(0, 0, 0, 0.3);
-    --dropdown-bg: #252525;
-    --dropdown-hover: #383838;
-}
+    <header class="config-panel">
+        <div class="panel-brand" contenteditable="true">METAL PRINT - CONFIGURAÇÃO</div>
+        <div class="panel-actions">
+            <button id="theme-toggle" class="btn-secondary">Alternar Modo Claro/Branco</button>
+            <button onclick="window.print();" class="btn-primary">Gerar PDF / Imprimir</button>
+        </div>
+    </header>
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', system-ui, sans-serif;
-}
+    <main class="print-container">
+        
+        <article class="receipt-card">
+            <div class="receipt-header">
+                <div class="company-info">
+                    <h2>METAL PRINT</h2>
+                    <p contenteditable="true">Clique para preencher dados da empresa...</p>
+                    <p class="cnpj">CNPJ: <span contenteditable="true">14.384.472/0001-08</span></p>
+                </div>
+                <div class="receipt-title">
+                    <h1 contenteditable="true">RECIBO DE PAGAMENTO</h1>
+                    <div class="date-container">
+                        <label>Data:</label>
+                        <input type="date" class="receipt-date-field" value="2026-07-03">
+                    </div>
+                </div>
+            </div>
 
-body {
-    background-color: var(--bg-system);
-    color: var(--text-main);
-    padding-bottom: 40px;
-}
+            <div class="receipt-body">
+                <div class="employee-grid">
+                    <div class="field-group">
+                        <label>Funcionário:</label>
+                        <div class="field-value select-employee-trigger" contenteditable="true"></div>
+                    </div>
+                    <div class="field-group">
+                        <label contenteditable="true">Cargo:</label>
+                        <div class="field-value" contenteditable="true"></div>
+                    </div>
+                </div>
 
-/* Painel de Controle Superior */
-.config-panel {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 210mm;
-    margin: 15px auto;
-    padding: 12px 20px;
-    background: var(--bg-card);
-    border-radius: 6px;
-    box-shadow: 0 2px 8px var(--shadow);
-}
-.panel-brand { font-weight: 800; font-size: 13px; letter-spacing: 0.5px; }
-.panel-actions { display: flex; gap: 10px; }
+                <table class="financial-table">
+                    <thead>
+                        <tr>
+                            <th contenteditable="true">Descrição dos Lançamentos</th>
+                            <th class="text-right" contenteditable="true">Proventos / H.E. (+)</th>
+                            <th class="text-right" contenteditable="true">Descontos (-)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td contenteditable="true"></td><td class="text-right" contenteditable="true"></td><td class="text-right" contenteditable="true"></td></tr>
+                        <tr><td contenteditable="true"></td><td class="text-right" contenteditable="true"></td><td class="text-right" contenteditable="true"></td></tr>
+                        <tr><td contenteditable="true"></td><td class="text-right" contenteditable="true"></td><td class="text-right" contenteditable="true"></td></tr>
+                        <tr><td contenteditable="true"></td><td class="text-right" contenteditable="true"></td><td class="text-right" contenteditable="true"></td></tr>
+                        <tr><td contenteditable="true"></td><td class="text-right" contenteditable="true"></td><td class="text-right" contenteditable="true"></td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td contenteditable="true">Totais</td>
+                            <td class="text-right positive" contenteditable="true"></td>
+                            <td class="text-right negative" contenteditable="true"></td>
+                        </tr>
+                        <tr class="net-row">
+                            <td colspan="2" contenteditable="true">VALOR LÍQUIDO A RECEBER:</td>
+                            <td class="text-right" contenteditable="true"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
 
-.btn-primary, .btn-secondary {
-    border: none; padding: 10px 18px; font-size: 12px; font-weight: 700; cursor: pointer; border-radius: 4px; transition: opacity 0.15s;
-}
-.btn-primary { background: #0056b3; color: white; }
-.btn-secondary { background: var(--accent-color); color: var(--bg-card); }
-.btn-primary:hover, .btn-secondary:hover { opacity: 0.9; }
+            <div class="receipt-footer">
+                <div class="signature-block">
+                    <div class="signature-line"></div>
+                    <p contenteditable="true">Assinatura do Responsável</p>
+                    <span contenteditable="true">Metal Print Ltda</span>
+                </div>
+                <div class="signature-block">
+                    <div class="signature-line"></div>
+                    <p contenteditable="true">Assinatura do Funcionário</p>
+                    <span contenteditable="true">Nome do Funcionário</span>
+                </div>
+            </div>
+            <div class="watermark" contenteditable="true">METAL PRINT</div>
+        </article>
 
-/* Contêiner da Folha A4 */
-.print-container {
-    width: 210mm;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 6mm;
-}
+        <article class="receipt-card">
+            <div class="receipt-header">
+                <div class="company-info">
+                    <h2>METAL PRINT</h2>
+                    <p contenteditable="true">Clique para preencher dados da empresa...</p>
+                    <p class="cnpj">CNPJ: <span contenteditable="true">14.384.472/0001-08</span></p>
+                </div>
+                <div class="receipt-title">
+                    <h1 contenteditable="true">RECIBO DE PAGAMENTO</h1>
+                    <div class="date-container">
+                        <label>Data:</label>
+                        <input type="date" class="receipt-date-field" value="2026-07-03">
+                    </div>
+                </div>
+            </div>
 
-/* Caixa do recibo */
-.receipt-card {
-    background: var(--bg-card);
-    border: 2px solid var(--border-color);
-    padding: 20px;
-    position: relative;
-    height: 128mm; /* Casado perfeitamente para caber 2 na página A4 */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: 0 4px 12px var(--shadow);
-}
+            <div class="receipt-body">
+                <div class="employee-grid">
+                    <div class="field-group">
+                        <label>Funcionário:</label>
+                        <div class="field-value select-employee-trigger" contenteditable="true"></div>
+                    </div>
+                    <div class="field-group">
+                        <label contenteditable="true">Cargo:</label>
+                        <div class="field-value" contenteditable="true"></div>
+                    </div>
+                </div>
 
-/* Campos editáveis */
-[contenteditable="true"] {
-    outline: none;
-    min-height: 1.2em;
-}
-[contenteditable="true"]:hover {
-    background: rgba(0, 0, 0, 0.025);
-}
-body.dark-mode [contenteditable="true"]:hover {
-    background: rgba(255, 255, 255, 0.03);
-}
+                <table class="financial-table">
+                    <thead>
+                        <tr>
+                            <th contenteditable="true">Descrição dos Lançamentos</th>
+                            <th class="text-right" contenteditable="true">Proventos / H.E. (+)</th>
+                            <th class="text-right" contenteditable="true">Descontos (-)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td contenteditable="true"></td><td class="text-right" contenteditable="true"></td><td class="text-right" contenteditable="true"></td></tr>
+                        <tr><td contenteditable="true"></td><td class="text-right" contenteditable="true"></td><td class="text-right" contenteditable="true"></td></tr>
+                        <tr><td contenteditable="true"></td><td class="text-right" contenteditable="true"></td><td class="text-right" contenteditable="true"></td></tr>
+                        <tr><td contenteditable="true"></td><td class="text-right" contenteditable="true"></td><td class="text-right" contenteditable="true"></td></tr>
+                        <tr><td contenteditable="true"></td><td class="text-right" contenteditable="true"></td><td class="text-right" contenteditable="true"></td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td contenteditable="true">Totais</td>
+                            <td class="text-right positive" contenteditable="true"></td>
+                            <td class="text-right negative" contenteditable="true"></td>
+                        </tr>
+                        <tr class="net-row">
+                            <td colspan="2" contenteditable="true">VALOR LÍQUIDO A RECEBER:</td>
+                            <td class="text-right" contenteditable="true"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
 
-/* Configurações do Calendário Interativo */
-.date-picker-wrapper {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    font-size: 11px;
-    font-weight: 600;
-    margin-top: 4px;
-}
-.receipt-date-text {
-    cursor: pointer;
-    border-bottom: 1px dashed var(--border-color);
-    padding: 0 4px;
-    transition: background 0.2s;
-}
-.receipt-date-text:hover {
-    background: rgba(0, 0, 0, 0.05);
-}
-body.dark-mode .receipt-date-text:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-.receipt-date-input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0; /* Invisível em tela para manter o design limpo */
-    cursor: pointer;
-    pointer-events: none;
-}
+            <div class="receipt-footer">
+                <div class="signature-block">
+                    <div class="signature-line"></div>
+                    <p contenteditable="true">Assinatura do Responsável</p>
+                    <span contenteditable="true">Metal Print Ltda</span>
+                </div>
+                <div class="signature-block">
+                    <div class="signature-line"></div>
+                    <p contenteditable="true">Assinatura do Funcionário</p>
+                    <span contenteditable="true">Nome do Funcionário</span>
+                </div>
+            </div>
+            <div class="watermark" contenteditable="true">METAL PRINT</div>
+        </article>
 
-/* Estrutura Cabeçalho */
-.receipt-header {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 2px solid var(--accent-color);
-    padding-bottom: 6px;
-}
-.company-info h2 { font-size: 20px; font-weight: 900; letter-spacing: 1px; }
-.company-info p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-.receipt-title { text-align: right; display: flex; flex-direction: column; align-items: flex-end; }
-.receipt-title h1 { font-size: 15px; font-weight: 800; }
+    </main>
 
-/* Estrutura Corpo */
-.employee-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin: 10px 0;
-}
-.field-group label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
-.field-value { font-size: 13px; font-weight: 600; border-bottom: 1px dashed var(--border-color); padding-top: 2px; min-height: 22px; }
+    <div id="employee-dropdown" class="employee-menu">
+        <div class="menu-item" data-name="Maria Eduarda Souza">Maria Eduarda Souza</div>
+        <div class="menu-item" data-name="Samara jesus da silva">Samara jesus da silva</div>
+        <div class="menu-item" data-name="Clebson sampaio da silva">Clebson sampaio da silva</div>
+    </div>
 
-/* Tabelas */
-.financial-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.financial-table th {
-    background: var(--table-header); font-weight: 700; font-size: 11px;
-    padding: 5px 8px; border: 1px solid var(--border-color); text-align: left;
-}
-.financial-table td { padding: 4px 8px; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px dotted var(--border-color); min-height: 18px; }
-.text-right { text-align: right; }
+    <script>
+        // Lógica do Menu do Funcionário
+        const dropdown = document.getElementById('employee-dropdown');
+        let currentTarget = null;
 
-.total-row td { border-top: 2px solid var(--accent-color); background: var(--table-header); font-weight: 700; padding: 5px 8px; }
-.net-row td { font-size: 12px; font-weight: 800; background: var(--accent-color); color: var(--bg-card); padding: 6px 8px; }
+        document.querySelectorAll('.select-employee-trigger').forEach(field => {
+            field.addEventListener('click', (e) => {
+                currentTarget = e.target;
+                const rect = currentTarget.getBoundingClientRect();
+                
+                dropdown.style.top = `${rect.bottom + window.scrollY}px`;
+                dropdown.style.left = `${rect.left + window.scrollX}px`;
+                dropdown.style.width = `${rect.width}px`;
+                dropdown.style.display = 'block';
+                e.stopPropagation();
+            });
+        });
 
-.positive { color: #2e7d32; }
-.negative { color: #c62828; }
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (currentTarget) {
+                    currentTarget.innerText = e.target.getAttribute('data-name');
+                }
+                dropdown.style.display = 'none';
+            });
+        });
 
-/* Assinaturas */
-.receipt-footer { display: flex; justify-content: space-between; margin-top: 10px; }
-.signature-block { width: 44%; text-align: center; }
-.signature-line { border-top: 1px solid var(--text-main); margin-bottom: 4px; }
-.signature-block p { font-size: 11px; font-weight: 700; }
-.signature-block span { font-size: 10px; color: var(--text-muted); }
+        document.addEventListener('click', () => {
+            dropdown.style.display = 'none';
+        });
 
-.watermark {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg);
-    font-size: 60px; font-weight: 900; color: var(--text-main); opacity: 0.015; pointer-events: none;
-    user-select: none;
-}
-
-/* Menu Dropdown de Funcionários */
-.employee-menu {
-    position: absolute;
-    display: none;
-    background: var(--dropdown-bg);
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    z-index: 9999;
-    border-radius: 4px;
-    overflow: hidden;
-}
-.menu-item {
-    padding: 8px 12px;
-    font-size: 13px;
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--text-main);
-}
-.menu-item:hover {
-    background: var(--dropdown-hover);
-}
-
-/* ==========================================
-   DIRETIVA EXCLUSIVA DE PDF / IMPRESSÃO
-   ========================================== */
-@media print {
-    @page {
-        margin: 0;
-        size: A4 portrait;
-    }
-    :root {
-        --bg-system: #ffffff;
-        --bg-card: #ffffff;
-        --text-main: #000000;
-        --text-muted: #222222;
-        --border-color: #000000;
-        --accent-color: #000000;
-        --table-header: #f2f2f2;
-        --shadow: none;
-    }
-    body { background: #ffffff; padding: 10mm 0 0 0; }
-    .config-panel, .employee-menu, .receipt-date-input { display: none !important; } 
-    .print-container { width: 100%; gap: 0; }
-    .receipt-card {
-        box-shadow: none;
-        page-break-inside: avoid;
-        height: 128mm;
-        margin-bottom: 8mm;
-        border: 2px solid #000000;
-    }
-    [contenteditable="true"]:hover, [contenteditable="true"]:focus { background: transparent; }
-    .receipt-date-text { border-bottom: none; }
-}
+        // Alternar visualização da tela (Claro/Escuro)
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>
