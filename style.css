@@ -1,0 +1,310 @@
+/* ==========================================
+   CONFIGURAÇÕES GERAIS E VARIÁVEIS (TEMA)
+   ========================================== */
+:root {
+    --bg-system: #f4f6f9;
+    --bg-card: #ffffff;
+    --text-main: #1a1a1a;
+    --text-muted: #555555;
+    --border-color: #bcbcbc;
+    --accent-color: #222222;
+    --table-header: #f0f0f0;
+    --shadow: rgba(0, 0, 0, 0.08);
+}
+
+/* Modo Escuro (Apenas para visualização em tela) */
+body.dark-mode {
+    --bg-system: #121212;
+    --bg-card: #1e1e1e;
+    --text-main: #f5f5f5;
+    --text-muted: #b0b0b0;
+    --border-color: #444444;
+    --accent-color: #ffffff;
+    --table-header: #2a2a2a;
+    --shadow: rgba(0, 0, 0, 0.4);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-system);
+    color: var(--text-main);
+    transition: background-color 0.3s, color 0.3s;
+    padding-bottom: 40px;
+}
+
+/* Painel de Controle Superior */
+.config-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 210mm;
+    margin: 20px auto;
+    padding: 15px 20px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.panel-brand {
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.panel-brand span {
+    font-weight: 300;
+    opacity: 0.7;
+}
+
+.btn-theme {
+    background: var(--accent-color);
+    color: var(--bg-card);
+    border: none;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: opacity 0.2s;
+}
+
+.btn-theme:hover {
+    opacity: 0.9;
+}
+
+/* ==========================================
+   ESTRUTURA DA FOLHA E DA IMPRESSÃO (A4)
+   ========================================== */
+.print-container {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12mm; /* Espaço cirúrgico para caber 2 na folha */
+}
+
+.receipt-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 135mm; /* Limita a altura para garantir o encaixe duplo */
+    box-shadow: 0 4px 20px var(--shadow);
+}
+
+/* Marca d'água de Autenticidade */
+.watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    font-size: 70px;
+    font-weight: 900;
+    color: var(--text-main);
+    opacity: 0.025;
+    pointer-events: none;
+    letter-spacing: 10px;
+}
+
+/* Cabeçalho do Recibo */
+.receipt-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 12px;
+}
+
+.company-info h2 {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+.company-info p {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.company-info .cnpj {
+    font-family: monospace;
+    margin-top: 2px;
+}
+
+.receipt-title {
+    text-align: right;
+}
+
+.receipt-title h1 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.receipt-date {
+    font-size: 12px;
+    display: block;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+/* Corpo do Recibo (Dados do Funcionário) */
+.receipt-body {
+    margin-top: 15px;
+    flex-grow: 1;
+}
+
+.employee-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.field-group label {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 2px;
+}
+
+.field-value {
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 1px dotted var(--border-color);
+    padding-bottom: 2px;
+}
+
+/* Tabela Financeira Clean (Sem visual padrão de IA) */
+.financial-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.financial-table th {
+    background: var(--table-header);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.financial-table td {
+    padding: 5px 10px;
+    border-x: 1px solid var(--border-color);
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.text-right {
+    text-align: right;
+}
+
+.financial-table tfoot tr {
+    font-weight: 700;
+}
+
+.total-row td {
+    border-top: 2px solid var(--accent-color);
+    background: var(--table-header);
+    padding: 6px 10px;
+}
+
+.net-row td {
+    font-size: 14px;
+    background: var(--accent-color);
+    color: var(--bg-card);
+    padding: 8px 10px;
+    border: 1px solid var(--accent-color);
+}
+
+.positive { color: #2e7d32; }
+body.dark-mode .positive { color: #81c784; }
+.negative { color: #c62828; }
+body.dark-mode .negative { color: #e57373; }
+
+/* Rodapé / Assinaturas */
+.receipt-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+
+.signature-block {
+    width: 45%;
+    text-align: center;
+}
+
+.signature-line {
+    border-top: 1px solid var(--text-main);
+    margin-bottom: 5px;
+}
+
+.signature-block p {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.signature-block span {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+/* ==========================================
+   REGRAS DE IMPRESSÃO (CRÍTICO PARA O PDF)
+   ========================================== */
+@media print {
+    /* Força o papel a ignorar o modo escuro na impressão real */
+    :root {
+        --bg-system: #ffffff;
+        --bg-card: #ffffff;
+        --text-main: #000000;
+        --text-muted: #444444;
+        --border-color: #000000;
+        --accent-color: #000000;
+        --table-header: #f5f5f5;
+        --shadow: none;
+    }
+
+    body {
+        background: #ffffff;
+        padding: 0;
+    }
+
+    .config-panel {
+        display: none !important; /* Oculta as configs no PDF */
+    }
+
+    .print-container {
+        width: 100%;
+        margin: 0;
+        gap: 0;
+    }
+
+    .receipt-card {
+        box-shadow: none;
+        page-break-inside: avoid;
+        margin-bottom: 10mm; /* Força espaço mecânico entre os dois na mesma folha */
+        border: 2px solid #000000;
+    }
+    
+    /* Garante que se houver mais de 2, ele corte a página perfeitamente */
+    .receipt-card:nth-child(2n) {
+        page-break-after: always;
+    }
+}
