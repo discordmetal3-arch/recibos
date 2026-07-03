@@ -3,42 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Recibos - Metal Print</title>
+    <title>Gerador de Recibos 100% Editável</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Painel de Operações (Ocultado no PDF) -->
     <header class="config-panel">
-        <div class="panel-brand">Metal Print <span>Gerador de Recibos</span></div>
+        <div class="panel-brand" contenteditable="true">METAL PRINT - GERADOR</div>
         <div class="panel-actions">
-            <button id="theme-toggle" class="btn-secondary">Alternar Modo Claro/Branco</button>
+            <button id="theme-toggle" class="btn-secondary">Modo Claro / Branco</button>
             <button onclick="window.print();" class="btn-primary">Gerar PDF / Imprimir</button>
         </div>
     </header>
 
     <main class="print-container">
         
+        <!-- RECIBO 1 (MÁSTER - TUDO SE ALTERA AQUI) -->
         <article class="receipt-card" id="receipt-1">
             <div class="receipt-header">
                 <div class="company-info">
-                    <h2>METAL PRINT</h2>
-                    <p contenteditable="true">Clique para adicionar Subtítulo/Endereço</p>
-                    <p class="cnpj">CNPJ: <span contenteditable="true">00.000.000/0001-00</span></p>
+                    <h2 contenteditable="true">METAL PRINT</h2>
+                    <p contenteditable="true">Clique para digitar o subtítulo, endereço ou dados da empresa...</p>
+                    <p class="cnpj" contenteditable="true">CNPJ: 00.000.000/0001-00</p>
                 </div>
                 <div class="receipt-title">
-                    <h1>RECIBO DE PAGAMENTO</h1>
-                    <span class="receipt-date">Data: <span contenteditable="true">____/____/2026</span></span>
+                    <h1 contenteditable="true">RECIBO DE PAGAMENTO</h1>
+                    <span class="receipt-date" contenteditable="true">Data: ____/____/2026</span>
                 </div>
             </div>
 
             <div class="receipt-body">
                 <div class="employee-grid">
                     <div class="field-group">
-                        <label>Funcionário:</label>
+                        <label contenteditable="true">Funcionário:</label>
                         <div class="field-value sync-name" contenteditable="true"></div>
                     </div>
                     <div class="field-group">
-                        <label>Cargo:</label>
+                        <label contenteditable="true">Cargo:</label>
                         <div class="field-value" contenteditable="true"></div>
                     </div>
                 </div>
@@ -46,9 +48,9 @@
                 <table class="financial-table">
                     <thead>
                         <tr>
-                            <th>Descrição dos Lançamentos</th>
-                            <th class="text-right">Proventos (+)</th>
-                            <th class="text-right">Descontos (-)</th>
+                            <th contenteditable="true">Descrição dos Lançamentos</th>
+                            <th class="text-right" contenteditable="true">Proventos (+)</th>
+                            <th class="text-right" contenteditable="true">Descontos (-)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,12 +82,12 @@
                     </tbody>
                     <tfoot>
                         <tr class="total-row">
-                            <td>Totais</td>
+                            <td contenteditable="true">Totais</td>
                             <td class="text-right positive total-proventos">R$ 0,00</td>
                             <td class="text-right negative total-descontos">R$ 0,00</td>
                         </tr>
                         <tr class="net-row">
-                            <td colspan="2">VALOR LÍQUIDO A RECEBER:</td>
+                            <td colspan="2" contenteditable="true">VALOR LÍQUIDO A RECEBER:</td>
                             <td class="text-right valor-liquido">R$ 0,00</td>
                         </tr>
                     </tfoot>
@@ -96,30 +98,32 @@
                 <div class="signature-block">
                     <div class="signature-line"></div>
                     <p contenteditable="true">Assinatura do Responsável</p>
-                    <span>Metal Print Ltda</span>
+                    <span contenteditable="true">Metal Print Ltda</span>
                 </div>
                 <div class="signature-block">
                     <div class="signature-line"></div>
-                    <p>Assinatura do Funcionário</p>
+                    <p contenteditable="true">Assinatura do Funcionário</p>
                     <span class="label-sync-name">---</span>
                 </div>
             </div>
-            <div class="watermark">METAL PRINT</div>
+            <div class="watermark" contenteditable="true">METAL PRINT</div>
         </article>
 
+        <!-- RECIBO 2 (ESPELHO - SE ADAPTA AUTOMATICAMENTE) -->
         <article class="receipt-card" id="receipt-2">
-            </article>
+            <!-- Estrutura replicada via Javascript para manter cópia idêntica na impressão -->
+        </article>
 
     </main>
 
     <script>
-        // Função matemática de cálculo e clonagem para a segunda via
         function calcularESincronizar() {
             const r1 = document.getElementById('receipt-1');
             
             let totalProventos = 0;
             let totalDescontos = 0;
 
+            // Soma automatizada de valores baseada no que você digita nas colunas
             r1.querySelectorAll('.val-provento').forEach(cell => {
                 let val = parseFloat(cell.innerText.replace(',', '.')) || 0;
                 totalProventos += val;
@@ -132,27 +136,26 @@
 
             let liquido = totalProventos - totalDescontos;
 
-            // Atualiza os totais calculados no primeiro recibo
+            // Renderiza os valores calculados
             r1.querySelector('.total-proventos').innerText = "R$ " + totalProventos.toFixed(2).replace('.', ',');
             r1.querySelector('.total-descontos').innerText = "R$ " + totalDescontos.toFixed(2).replace('.', ',');
             r1.querySelector('.valor-liquido').innerText = "R$ " + liquido.toFixed(2).replace('.', ',');
 
-            // Sincroniza dinamicamente o nome escrito no campo do funcionário com a linha de assinatura
+            // Vincula o nome do funcionário diretamente com a legenda da assinatura dele abaixo
             const nomeFuncionario = r1.querySelector('.sync-name').innerText.trim();
             r1.querySelector('.label-sync-name').innerText = nomeFuncionario !== "" ? nomeFuncionario : "---";
 
-            // Duplica perfeitamente a estrutura para a via de baixo (economiza digitação)
+            // Duplica perfeitamente o estado atualizado do recibo para a segunda via de baixo
             document.getElementById('receipt-2').innerHTML = r1.innerHTML;
         }
 
-        // Fica de olho em qualquer caractere digitado na tela
         const container = document.getElementById('receipt-1');
         container.addEventListener('input', calcularESincronizar);
 
-        // Inicializa zerado
+        // Execução inicial para limpar campos e sincronizar estados iniciais
         window.addEventListener('DOMContentLoaded', calcularESincronizar);
 
-        // Chaveador de tema (Claro ou Branco/Escuro para a interface)
+        // Controlador de interface claro/escuro
         document.getElementById('theme-toggle').addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
         });
