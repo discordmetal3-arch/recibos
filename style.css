@@ -33,7 +33,7 @@ body {
     padding-bottom: 60px;
 }
 
-/* Painel Superior */
+/* Menu superior de controle */
 .config-panel {
     display: flex;
     justify-content: space-between;
@@ -55,7 +55,7 @@ body {
 .btn-secondary { background: var(--accent-color); color: var(--bg-card); }
 .btn-primary:hover, .btn-secondary:hover { opacity: 0.9; }
 
-/* Contêiner da Folha A4 */
+/* Contêiner dimensional A4 */
 .print-container {
     width: 210mm;
     margin: 0 auto;
@@ -64,23 +64,23 @@ body {
     gap: 8mm;
 }
 
-/* Estrutura do Bloco de Recibo */
+/* Caixa estrutural do recibo individual */
 .receipt-card {
     background: var(--bg-card);
     border: 2px solid var(--border-color);
     padding: 24px;
     position: relative;
-    height: 135mm; /* Trava a altura exata para caberem dois no espaço útil */
+    height: 135mm; /* Mantém os dois blocos rigidamente dentro de uma única folha */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 4px 12px var(--shadow);
 }
 
-/* Customização total e remoção de bordas brutas de navegadores */
+/* Liberação total de digitação pura */
 [contenteditable="true"] {
     outline: none;
-    min-height: 1em;
+    min-height: 1.2em;
 }
 [contenteditable="true"]:hover {
     background: rgba(0, 0, 0, 0.025);
@@ -88,11 +88,8 @@ body {
 body.dark-mode [contenteditable="true"]:hover {
     background: rgba(255, 255, 255, 0.03);
 }
-[contenteditable="true"]:focus {
-    background: rgba(0, 0, 0, 0.04);
-}
 
-/* Cabeçalho */
+/* Estrutura Cabeçalho */
 .receipt-header {
     display: flex;
     justify-content: space-between;
@@ -105,7 +102,7 @@ body.dark-mode [contenteditable="true"]:hover {
 .receipt-title h1 { font-size: 16px; font-weight: 800; }
 .receipt-date { font-size: 12px; font-weight: 600; display: block; margin-top: 4px; }
 
-/* Grid de Dados */
+/* Estrutura Corpo */
 .employee-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -115,13 +112,13 @@ body.dark-mode [contenteditable="true"]:hover {
 .field-group label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
 .field-value { font-size: 14px; font-weight: 600; border-bottom: 1px dashed var(--border-color); padding-top: 4px; min-height: 24px; }
 
-/* Organização de Tabelas */
+/* Estrutura Tabelas */
 .financial-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 .financial-table th {
     background: var(--table-header); font-weight: 700; font-size: 11px;
     padding: 6px 10px; border: 1px solid var(--border-color); text-align: left;
 }
-.financial-table td { padding: 5px 10px; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px dotted var(--border-color); }
+.financial-table td { padding: 5px 10px; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px dotted var(--border-color); min-height: 20px; }
 .text-right { text-align: right; }
 
 .total-row td { border-top: 2px solid var(--accent-color); background: var(--table-header); font-weight: 700; padding: 6px 10px; }
@@ -130,14 +127,13 @@ body.dark-mode [contenteditable="true"]:hover {
 .positive { color: #2e7d32; }
 .negative { color: #c62828; }
 
-/* Rodapés e Linhas de Assinatura */
+/* Assinaturas */
 .receipt-footer { display: flex; justify-content: space-between; margin-top: 15px; }
 .signature-block { width: 44%; text-align: center; }
 .signature-line { border-top: 1px solid var(--text-main); margin-bottom: 4px; }
 .signature-block p { font-size: 11px; font-weight: 700; }
 .signature-block span { font-size: 10px; color: var(--text-muted); }
 
-/* Marca D'água industrial */
 .watermark {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg);
     font-size: 65px; font-weight: 900; color: var(--text-main); opacity: 0.015; pointer-events: none;
@@ -145,7 +141,7 @@ body.dark-mode [contenteditable="true"]:hover {
 }
 
 /* ==========================================
-   REGRAS DE IMPRESSÃO (SAÍDA PARA PDF/PAPEL)
+   DIRETIVA EXCLUSIVA DE PDF / IMPRESSÃO
    ========================================== */
 @media print {
     :root {
@@ -159,7 +155,7 @@ body.dark-mode [contenteditable="true"]:hover {
         --shadow: none;
     }
     body { background: #ffffff; padding: 0; }
-    .config-panel { display: none !important; } /* Esconde o painel de botões do PDF */
+    .config-panel { display: none !important; } /* Oculta ferramentas na impressão */
     .print-container { width: 100%; gap: 0; }
     .receipt-card {
         box-shadow: none;
@@ -168,6 +164,5 @@ body.dark-mode [contenteditable="true"]:hover {
         margin-bottom: 6mm;
         border: 2px solid #000000;
     }
-    /* Limpa marcadores interativos de tela para a folha final */
     [contenteditable="true"]:hover, [contenteditable="true"]:focus { background: transparent; }
 }
