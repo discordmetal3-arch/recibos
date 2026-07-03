@@ -1,19 +1,18 @@
 :root {
-    --bg-system: #f5f6f8;
+    --bg-system: #f3f4f6;
     --bg-card: #ffffff;
-    --text-main: #151515;
-    --text-muted: #666666;
-    --border-color: #999999;
-    --accent-color: #222222;
+    --text-main: #111111;
+    --text-muted: #555555;
+    --border-color: #888888;
+    --accent-color: #1a1a1a;
     --table-header: #f8f9fa;
-    --shadow: rgba(0, 0, 0, 0.08);
+    --shadow: rgba(0, 0, 0, 0.06);
 }
 
-/* Modo escuro apenas para visualização em tela, na impressão vira papel branco */
 body.dark-mode {
     --bg-system: #121212;
     --bg-card: #1e1e1e;
-    --text-main: #e5e5e5;
+    --text-main: #e0e0e0;
     --text-muted: #a0a0a0;
     --border-color: #444444;
     --accent-color: #ffffff;
@@ -34,7 +33,7 @@ body {
     padding-bottom: 60px;
 }
 
-/* Painel superior administrativo */
+/* Painel Superior */
 .config-panel {
     display: flex;
     justify-content: space-between;
@@ -46,74 +45,67 @@ body {
     border-radius: 6px;
     box-shadow: 0 2px 8px var(--shadow);
 }
-
-.panel-brand { font-weight: 800; text-transform: uppercase; font-size: 14px; letter-spacing: 0.5px; }
-.panel-brand span { font-weight: 300; opacity: 0.8; }
+.panel-brand { font-weight: 800; font-size: 13px; letter-spacing: 0.5px; }
 .panel-actions { display: flex; gap: 10px; }
 
 .btn-primary, .btn-secondary {
-    border: none; padding: 10px 18px; font-size: 12px; font-weight: 700; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;
+    border: none; padding: 10px 18px; font-size: 12px; font-weight: 700; cursor: pointer; border-radius: 4px; transition: opacity 0.15s;
 }
-.btn-primary { background: #0066cc; color: white; }
+.btn-primary { background: #0056b3; color: white; }
 .btn-secondary { background: var(--accent-color); color: var(--bg-card); }
 .btn-primary:hover, .btn-secondary:hover { opacity: 0.9; }
 
-/* Contêiner de tamanho de folha física A4 */
+/* Contêiner da Folha A4 */
 .print-container {
     width: 210mm;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 8mm; /* Espaço para fixar 2 recibos em uma única folha */
+    gap: 8mm;
 }
 
-/* Cartão do Recibo */
+/* Estrutura do Bloco de Recibo */
 .receipt-card {
     background: var(--bg-card);
     border: 2px solid var(--border-color);
     padding: 24px;
     position: relative;
-    height: 135mm; /* Limite mecânico de altura */
+    height: 135mm; /* Trava a altura exata para caberem dois no espaço útil */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 4px 12px var(--shadow);
 }
 
-/* Estilo visual da caixa em branco pronta para digitação */
+/* Customização total e remoção de bordas brutas de navegadores */
 [contenteditable="true"] {
     outline: none;
-    min-height: 1.2em;
-}
-[contenteditable="true"]:empty::before {
-    content: "Clique para digitar...";
-    color: #999999;
-    font-style: italic;
-    font-weight: 400;
+    min-height: 1em;
 }
 [contenteditable="true"]:hover {
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(0, 0, 0, 0.025);
 }
 body.dark-mode [contenteditable="true"]:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.03);
 }
 [contenteditable="true"]:focus {
     background: rgba(0, 0, 0, 0.04);
 }
 
-/* Estrutura Interna */
+/* Cabeçalho */
 .receipt-header {
     display: flex;
     justify-content: space-between;
     border-bottom: 2px solid var(--accent-color);
-    padding-bottom: 10px;
+    padding-bottom: 8px;
 }
 .company-info h2 { font-size: 22px; font-weight: 900; letter-spacing: 1px; }
 .company-info p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 .receipt-title { text-align: right; }
-.receipt-title h1 { font-size: 16px; font-weight: 800; letter-spacing: 0.5px; }
+.receipt-title h1 { font-size: 16px; font-weight: 800; }
 .receipt-date { font-size: 12px; font-weight: 600; display: block; margin-top: 4px; }
 
+/* Grid de Dados */
 .employee-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -123,12 +115,11 @@ body.dark-mode [contenteditable="true"]:hover {
 .field-group label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
 .field-value { font-size: 14px; font-weight: 600; border-bottom: 1px dashed var(--border-color); padding-top: 4px; min-height: 24px; }
 
-/* Tabelas de Cálculo */
+/* Organização de Tabelas */
 .financial-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 .financial-table th {
     background: var(--table-header); font-weight: 700; font-size: 11px;
     padding: 6px 10px; border: 1px solid var(--border-color); text-align: left;
-    text-transform: uppercase;
 }
 .financial-table td { padding: 5px 10px; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px dotted var(--border-color); }
 .text-right { text-align: right; }
@@ -139,35 +130,36 @@ body.dark-mode [contenteditable="true"]:hover {
 .positive { color: #2e7d32; }
 .negative { color: #c62828; }
 
-/* Bloco de Assinaturas */
+/* Rodapés e Linhas de Assinatura */
 .receipt-footer { display: flex; justify-content: space-between; margin-top: 15px; }
 .signature-block { width: 44%; text-align: center; }
 .signature-line { border-top: 1px solid var(--text-main); margin-bottom: 4px; }
 .signature-block p { font-size: 11px; font-weight: 700; }
 .signature-block span { font-size: 10px; color: var(--text-muted); }
 
+/* Marca D'água industrial */
 .watermark {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg);
     font-size: 65px; font-weight: 900; color: var(--text-main); opacity: 0.015; pointer-events: none;
+    user-select: none;
 }
 
 /* ==========================================
-   MÓDULO DE IMPRESSÃO (CONFIGURAÇÃO DO PDF)
+   REGRAS DE IMPRESSÃO (SAÍDA PARA PDF/PAPEL)
    ========================================== */
 @media print {
-    /* Reseta o design para papel físico, ignorando o modo escuro da tela */
     :root {
         --bg-system: #ffffff;
         --bg-card: #ffffff;
         --text-main: #000000;
-        --text-muted: #333333;
+        --text-muted: #222222;
         --border-color: #000000;
         --accent-color: #000000;
         --table-header: #f2f2f2;
         --shadow: none;
     }
     body { background: #ffffff; padding: 0; }
-    .config-panel { display: none !important; } /* Oculta a barra de botões no PDF */
+    .config-panel { display: none !important; } /* Esconde o painel de botões do PDF */
     .print-container { width: 100%; gap: 0; }
     .receipt-card {
         box-shadow: none;
@@ -176,7 +168,6 @@ body.dark-mode [contenteditable="true"]:hover {
         margin-bottom: 6mm;
         border: 2px solid #000000;
     }
-    /* Remove sombras e fundos cinzas interativos ao gerar o arquivo final */
+    /* Limpa marcadores interativos de tela para a folha final */
     [contenteditable="true"]:hover, [contenteditable="true"]:focus { background: transparent; }
-    [contenteditable="true"]:empty::before { content: ""; }
 }
