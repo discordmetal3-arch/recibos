@@ -30,10 +30,10 @@ body.dark-mode {
 body {
     background-color: var(--bg-system);
     color: var(--text-main);
-    padding-bottom: 60px;
+    padding-bottom: 40px;
 }
 
-/* Menu superior de controle */
+/* Painel de Controle Superior */
 .config-panel {
     display: flex;
     justify-content: space-between;
@@ -55,29 +55,29 @@ body {
 .btn-secondary { background: var(--accent-color); color: var(--bg-card); }
 .btn-primary:hover, .btn-secondary:hover { opacity: 0.9; }
 
-/* Contêiner dimensional A4 */
+/* Contêiner da Folha A4 */
 .print-container {
     width: 210mm;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 8mm;
+    gap: 6mm; /* Ajustado para evitar quebras de folha */
 }
 
 /* Caixa estrutural do recibo individual */
 .receipt-card {
     background: var(--bg-card);
     border: 2px solid var(--border-color);
-    padding: 24px;
+    padding: 20px;
     position: relative;
-    height: 135mm; /* Mantém os dois blocos rigidamente dentro de uma única folha */
+    height: 128mm; /* Ajustado milimetricamente para caber 2 em uma folha A4 */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 4px 12px var(--shadow);
 }
 
-/* Liberação total de digitação pura */
+/* Estilo de caixas editáveis livres */
 [contenteditable="true"] {
     outline: none;
     min-height: 1.2em;
@@ -94,41 +94,41 @@ body.dark-mode [contenteditable="true"]:hover {
     display: flex;
     justify-content: space-between;
     border-bottom: 2px solid var(--accent-color);
-    padding-bottom: 8px;
+    padding-bottom: 6px;
 }
-.company-info h2 { font-size: 22px; font-weight: 900; letter-spacing: 1px; }
+.company-info h2 { font-size: 20px; font-weight: 900; letter-spacing: 1px; }
 .company-info p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 .receipt-title { text-align: right; }
-.receipt-title h1 { font-size: 16px; font-weight: 800; }
-.receipt-date { font-size: 12px; font-weight: 600; display: block; margin-top: 4px; }
+.receipt-title h1 { font-size: 15px; font-weight: 800; }
+.receipt-date { font-size: 11px; font-weight: 600; display: block; margin-top: 4px; }
 
 /* Estrutura Corpo */
 .employee-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin: 15px 0;
+    gap: 15px;
+    margin: 10px 0;
 }
 .field-group label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
-.field-value { font-size: 14px; font-weight: 600; border-bottom: 1px dashed var(--border-color); padding-top: 4px; min-height: 24px; }
+.field-value { font-size: 13px; font-weight: 600; border-bottom: 1px dashed var(--border-color); padding-top: 2px; min-height: 22px; }
 
 /* Estrutura Tabelas */
 .financial-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 .financial-table th {
     background: var(--table-header); font-weight: 700; font-size: 11px;
-    padding: 6px 10px; border: 1px solid var(--border-color); text-align: left;
+    padding: 5px 8px; border: 1px solid var(--border-color); text-align: left;
 }
-.financial-table td { padding: 5px 10px; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px dotted var(--border-color); min-height: 20px; }
+.financial-table td { padding: 4px 8px; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px dotted var(--border-color); min-height: 18px; }
 .text-right { text-align: right; }
 
-.total-row td { border-top: 2px solid var(--accent-color); background: var(--table-header); font-weight: 700; padding: 6px 10px; }
-.net-row td { font-size: 13px; font-weight: 800; background: var(--accent-color); color: var(--bg-card); padding: 8px 10px; }
+.total-row td { border-top: 2px solid var(--accent-color); background: var(--table-header); font-weight: 700; padding: 5px 8px; }
+.net-row td { font-size: 12px; font-weight: 800; background: var(--accent-color); color: var(--bg-card); padding: 6px 8px; }
 
 .positive { color: #2e7d32; }
 .negative { color: #c62828; }
 
 /* Assinaturas */
-.receipt-footer { display: flex; justify-content: space-between; margin-top: 15px; }
+.receipt-footer { display: flex; justify-content: space-between; margin-top: 10px; }
 .signature-block { width: 44%; text-align: center; }
 .signature-line { border-top: 1px solid var(--text-main); margin-bottom: 4px; }
 .signature-block p { font-size: 11px; font-weight: 700; }
@@ -136,7 +136,7 @@ body.dark-mode [contenteditable="true"]:hover {
 
 .watermark {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg);
-    font-size: 65px; font-weight: 900; color: var(--text-main); opacity: 0.015; pointer-events: none;
+    font-size: 60px; font-weight: 900; color: var(--text-main); opacity: 0.015; pointer-events: none;
     user-select: none;
 }
 
@@ -144,6 +144,10 @@ body.dark-mode [contenteditable="true"]:hover {
    DIRETIVA EXCLUSIVA DE PDF / IMPRESSÃO
    ========================================== */
 @media print {
+    @page {
+        margin: 0; /* Zera os espaçamentos automáticos do navegador que empurravam a folha */
+        size: A4 portrait;
+    }
     :root {
         --bg-system: #ffffff;
         --bg-card: #ffffff;
@@ -154,14 +158,14 @@ body.dark-mode [contenteditable="true"]:hover {
         --table-header: #f2f2f2;
         --shadow: none;
     }
-    body { background: #ffffff; padding: 0; }
-    .config-panel { display: none !important; } /* Oculta ferramentas na impressão */
+    body { background: #ffffff; padding: 10mm 0 0 0; } /* Margem de segurança apenas no topo do papel */
+    .config-panel { display: none !important; }
     .print-container { width: 100%; gap: 0; }
     .receipt-card {
         box-shadow: none;
         page-break-inside: avoid;
-        height: 138mm;
-        margin-bottom: 6mm;
+        height: 128mm;
+        margin-bottom: 8mm; /* Espaçamento físico perfeito entre as duas vias */
         border: 2px solid #000000;
     }
     [contenteditable="true"]:hover, [contenteditable="true"]:focus { background: transparent; }
