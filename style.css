@@ -74,7 +74,7 @@ body {
     border: 2px solid var(--border-color);
     padding: 20px;
     position: relative;
-    height: 128mm; /* Tamanho rigoroso para encaixar as 2 na página A4 */
+    height: 128mm; /* Casado perfeitamente para caber 2 na página A4 */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -93,6 +93,38 @@ body.dark-mode [contenteditable="true"]:hover {
     background: rgba(255, 255, 255, 0.03);
 }
 
+/* Configurações do Calendário Interativo */
+.date-picker-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+.receipt-date-text {
+    cursor: pointer;
+    border-bottom: 1px dashed var(--border-color);
+    padding: 0 4px;
+    transition: background 0.2s;
+}
+.receipt-date-text:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+body.dark-mode .receipt-date-text:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+.receipt-date-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Invisível em tela para manter o design limpo */
+    cursor: pointer;
+    pointer-events: none;
+}
+
 /* Estrutura Cabeçalho */
 .receipt-header {
     display: flex;
@@ -102,9 +134,8 @@ body.dark-mode [contenteditable="true"]:hover {
 }
 .company-info h2 { font-size: 20px; font-weight: 900; letter-spacing: 1px; }
 .company-info p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-.receipt-title { text-align: right; }
+.receipt-title { text-align: right; display: flex; flex-direction: column; align-items: flex-end; }
 .receipt-title h1 { font-size: 15px; font-weight: 800; }
-.receipt-date { font-size: 11px; font-weight: 600; display: block; margin-top: 4px; }
 
 /* Estrutura Corpo */
 .employee-grid {
@@ -144,9 +175,7 @@ body.dark-mode [contenteditable="true"]:hover {
     user-select: none;
 }
 
-/* ==========================================
-   CSS FLUTUANTE DA LISTA DE FUNCIONÁRIOS
-   ========================================== */
+/* Menu Dropdown de Funcionários */
 .employee-menu {
     position: absolute;
     display: none;
@@ -157,7 +186,6 @@ body.dark-mode [contenteditable="true"]:hover {
     border-radius: 4px;
     overflow: hidden;
 }
-
 .menu-item {
     padding: 8px 12px;
     font-size: 13px;
@@ -165,7 +193,6 @@ body.dark-mode [contenteditable="true"]:hover {
     font-weight: 600;
     color: var(--text-main);
 }
-
 .menu-item:hover {
     background: var(--dropdown-hover);
 }
@@ -189,7 +216,7 @@ body.dark-mode [contenteditable="true"]:hover {
         --shadow: none;
     }
     body { background: #ffffff; padding: 10mm 0 0 0; }
-    .config-panel, .employee-menu { display: none !important; } /* Esconde menus e painel no PDF */
+    .config-panel, .employee-menu, .receipt-date-input { display: none !important; } 
     .print-container { width: 100%; gap: 0; }
     .receipt-card {
         box-shadow: none;
@@ -199,4 +226,5 @@ body.dark-mode [contenteditable="true"]:hover {
         border: 2px solid #000000;
     }
     [contenteditable="true"]:hover, [contenteditable="true"]:focus { background: transparent; }
+    .receipt-date-text { border-bottom: none; }
 }
