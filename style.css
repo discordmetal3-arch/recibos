@@ -7,6 +7,8 @@
     --accent-color: #1a1a1a;
     --table-header: #f8f9fa;
     --shadow: rgba(0, 0, 0, 0.06);
+    --dropdown-bg: #ffffff;
+    --dropdown-hover: #f0f0f0;
 }
 
 body.dark-mode {
@@ -18,6 +20,8 @@ body.dark-mode {
     --accent-color: #ffffff;
     --table-header: #2d2d2d;
     --shadow: rgba(0, 0, 0, 0.3);
+    --dropdown-bg: #252525;
+    --dropdown-hover: #383838;
 }
 
 * {
@@ -61,23 +65,23 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 6mm; /* Ajustado para evitar quebras de folha */
+    gap: 6mm;
 }
 
-/* Caixa estrutural do recibo individual */
+/* Caixa do recibo */
 .receipt-card {
     background: var(--bg-card);
     border: 2px solid var(--border-color);
     padding: 20px;
     position: relative;
-    height: 128mm; /* Ajustado milimetricamente para caber 2 em uma folha A4 */
+    height: 128mm; /* Tamanho rigoroso para encaixar as 2 na página A4 */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 4px 12px var(--shadow);
 }
 
-/* Estilo de caixas editáveis livres */
+/* Campos editáveis */
 [contenteditable="true"] {
     outline: none;
     min-height: 1.2em;
@@ -112,7 +116,7 @@ body.dark-mode [contenteditable="true"]:hover {
 .field-group label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
 .field-value { font-size: 13px; font-weight: 600; border-bottom: 1px dashed var(--border-color); padding-top: 2px; min-height: 22px; }
 
-/* Estrutura Tabelas */
+/* Tabelas */
 .financial-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 .financial-table th {
     background: var(--table-header); font-weight: 700; font-size: 11px;
@@ -141,11 +145,37 @@ body.dark-mode [contenteditable="true"]:hover {
 }
 
 /* ==========================================
+   CSS FLUTUANTE DA LISTA DE FUNCIONÁRIOS
+   ========================================== */
+.employee-menu {
+    position: absolute;
+    display: none;
+    background: var(--dropdown-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 9999;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.menu-item {
+    padding: 8px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.menu-item:hover {
+    background: var(--dropdown-hover);
+}
+
+/* ==========================================
    DIRETIVA EXCLUSIVA DE PDF / IMPRESSÃO
    ========================================== */
 @media print {
     @page {
-        margin: 0; /* Zera os espaçamentos automáticos do navegador que empurravam a folha */
+        margin: 0;
         size: A4 portrait;
     }
     :root {
@@ -158,14 +188,14 @@ body.dark-mode [contenteditable="true"]:hover {
         --table-header: #f2f2f2;
         --shadow: none;
     }
-    body { background: #ffffff; padding: 10mm 0 0 0; } /* Margem de segurança apenas no topo do papel */
-    .config-panel { display: none !important; }
+    body { background: #ffffff; padding: 10mm 0 0 0; }
+    .config-panel, .employee-menu { display: none !important; } /* Esconde menus e painel no PDF */
     .print-container { width: 100%; gap: 0; }
     .receipt-card {
         box-shadow: none;
         page-break-inside: avoid;
         height: 128mm;
-        margin-bottom: 8mm; /* Espaçamento físico perfeito entre as duas vias */
+        margin-bottom: 8mm;
         border: 2px solid #000000;
     }
     [contenteditable="true"]:hover, [contenteditable="true"]:focus { background: transparent; }
