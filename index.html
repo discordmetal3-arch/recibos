@@ -3,35 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Recibos Interativo - Metal Print</title>
+    <title>Gerador de Recibos - Metal Print</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Painel de Operações (Ocultado no PDF) -->
     <header class="config-panel">
-        <div class="panel-brand">Metal Print <span>Gerador Profissional</span></div>
+        <div class="panel-brand">Metal Print <span>Gerador de Recibos</span></div>
         <div class="panel-actions">
-            <button id="theme-toggle" class="btn-secondary">Alternar Modo Claro/Escuro</button>
-            <button onclick="window.print()" class="btn-primary">Gerar PDF / Imprimir</button>
+            <button id="theme-toggle" class="btn-secondary">Alternar Modo Claro/Branco</button>
+            <button onclick="window.print();" class="btn-primary">Gerar PDF / Imprimir</button>
         </div>
     </header>
 
     <main class="print-container">
         
-        <!-- O loop abaixo cria os 2 recibos idênticos. Alterações no primeiro serão replicadas no segundo via Script para poupar seu tempo. -->
-        
-        <!-- RECIBO 1 (ORIGINAL) -->
         <article class="receipt-card" id="receipt-1">
             <div class="receipt-header">
                 <div class="company-info">
-                    <h2 contenteditable="true">METAL PRINT</h2>
-                    <p contenteditable="true">Indústria e Comunicação Visual</p>
-                    <p class="cnpj" contenteditable="true">CNPJ: 00.000.000/0001-00</p>
+                    <h2>METAL PRINT</h2>
+                    <p contenteditable="true">Clique para adicionar Subtítulo/Endereço</p>
+                    <p class="cnpj">CNPJ: <span contenteditable="true">00.000.000/0001-00</span></p>
                 </div>
                 <div class="receipt-title">
                     <h1>RECIBO DE PAGAMENTO</h1>
-                    <span class="receipt-date">Data: <span contenteditable="true">03/07/2026</span></span>
+                    <span class="receipt-date">Data: <span contenteditable="true">____/____/2026</span></span>
                 </div>
             </div>
 
@@ -39,11 +35,11 @@
                 <div class="employee-grid">
                     <div class="field-group">
                         <label>Funcionário:</label>
-                        <div class="field-value sync-name" contenteditable="true">Nome do Funcionário</div>
+                        <div class="field-value sync-name" contenteditable="true"></div>
                     </div>
                     <div class="field-group">
                         <label>Cargo:</label>
-                        <div class="field-value" contenteditable="true">Operador de Router CNC</div>
+                        <div class="field-value" contenteditable="true"></div>
                     </div>
                 </div>
 
@@ -58,28 +54,28 @@
                     <tbody>
                         <tr>
                             <td contenteditable="true">Salário Base Mensal</td>
-                            <td class="text-right val-provento" contenteditable="true">2450,00</td>
+                            <td class="text-right val-provento" contenteditable="true">0,00</td>
                             <td class="text-right val-desconto" contenteditable="true">0,00</td>
                         </tr>
                         <tr>
                             <td contenteditable="true">Horas Extras Adicionais</td>
-                            <td class="text-right val-provento" contenteditable="true">320,00</td>
-                            <td class="text-right val-desconto" contenteditable="true">0,00</td>
-                        </tr>
-                        <tr>
-                            <td contenteditable="true">Adicionais (Insalubridade/Noturno)</td>
                             <td class="text-right val-provento" contenteditable="true">0,00</td>
                             <td class="text-right val-desconto" contenteditable="true">0,00</td>
                         </tr>
                         <tr>
-                            <td contenteditable="true">Descontos (VT/VA/Faltas)</td>
+                            <td contenteditable="true">Adicionais</td>
                             <td class="text-right val-provento" contenteditable="true">0,00</td>
-                            <td class="text-right val-desconto" contenteditable="true">147,00</td>
+                            <td class="text-right val-desconto" contenteditable="true">0,00</td>
                         </tr>
                         <tr>
-                            <td contenteditable="true">Adiantamento Quinzenal</td>
+                            <td contenteditable="true">Descontos</td>
                             <td class="text-right val-provento" contenteditable="true">0,00</td>
-                            <td class="text-right val-desconto" contenteditable="true">400,00</td>
+                            <td class="text-right val-desconto" contenteditable="true">0,00</td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="true">Outros Lançamentos</td>
+                            <td class="text-right val-provento" contenteditable="true">0,00</td>
+                            <td class="text-right val-desconto" contenteditable="true">0,00</td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -100,30 +96,27 @@
                 <div class="signature-block">
                     <div class="signature-line"></div>
                     <p contenteditable="true">Assinatura do Responsável</p>
-                    <span contenteditable="true">Metal Print Ltda</span>
+                    <span>Metal Print Ltda</span>
                 </div>
                 <div class="signature-block">
                     <div class="signature-line"></div>
                     <p>Assinatura do Funcionário</p>
-                    <span class="label-sync-name">Nome do Funcionário</span>
+                    <span class="label-sync-name">---</span>
                 </div>
             </div>
             <div class="watermark">METAL PRINT</div>
         </article>
 
-        <!-- RECIBO 2 (CÓPIA AUTOMÁTICA) -->
         <article class="receipt-card" id="receipt-2">
-            <!-- O script abaixo vai espelhar tudo aqui dentro para você não digitar duas vezes -->
-        </article>
+            </article>
 
     </main>
 
     <script>
-        // Lógica de cálculo matemático e espelhamento para a segunda via
+        // Função matemática de cálculo e clonagem para a segunda via
         function calcularESincronizar() {
             const r1 = document.getElementById('receipt-1');
             
-            // 1. Captura e Limpeza de valores do Recibo 1
             let totalProventos = 0;
             let totalDescontos = 0;
 
@@ -139,27 +132,27 @@
 
             let liquido = totalProventos - totalDescontos;
 
-            // 2. Atualiza os totais na tela (Recibo 1)
+            // Atualiza os totais calculados no primeiro recibo
             r1.querySelector('.total-proventos').innerText = "R$ " + totalProventos.toFixed(2).replace('.', ',');
             r1.querySelector('.total-descontos').innerText = "R$ " + totalDescontos.toFixed(2).replace('.', ',');
             r1.querySelector('.valor-liquido').innerText = "R$ " + liquido.toFixed(2).replace('.', ',');
 
-            // 3. Sincroniza o nome do funcionário no rodapé da assinatura
-            const nomeFuncionario = r1.querySelector('.sync-name').innerText;
-            r1.querySelector('.label-sync-name').innerText = nomeFuncionario;
+            // Sincroniza dinamicamente o nome escrito no campo do funcionário com a linha de assinatura
+            const nomeFuncionario = r1.querySelector('.sync-name').innerText.trim();
+            r1.querySelector('.label-sync-name').innerText = nomeFuncionario !== "" ? nomeFuncionario : "---";
 
-            // 4. Clona o conteúdo estrutural inteiro do Recibo 1 para o Recibo 2 (Garante cópia idêntica)
+            // Duplica perfeitamente a estrutura para a via de baixo (economiza digitação)
             document.getElementById('receipt-2').innerHTML = r1.innerHTML;
         }
 
-        // Monitora qualquer alteração ou digitação no Recibo 1
+        // Fica de olho em qualquer caractere digitado na tela
         const container = document.getElementById('receipt-1');
         container.addEventListener('input', calcularESincronizar);
 
-        // Inicializa os cálculos na primeira carga da página
+        // Inicializa zerado
         window.addEventListener('DOMContentLoaded', calcularESincronizar);
 
-        // Alternador de tema (Claro / Escuro)
+        // Chaveador de tema (Claro ou Branco/Escuro para a interface)
         document.getElementById('theme-toggle').addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
         });
